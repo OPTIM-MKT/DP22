@@ -3,11 +3,8 @@
 
 @custom-variant dark (&:where(.dark,.dark *));
 
-
-@theme inline {
-    --color-primary: #013383;
-    --color-secondary: #233060;
-    --color-accent: #fab702;
+@theme {
+  --color-primary: #1c3766;
+  --color-secondary: #d4ae2c;
+  --color-accent: #fab702;
 }
-    
-
