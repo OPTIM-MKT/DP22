@@ -61,13 +61,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 
     <!-- Set theme before paint to avoid flash -->
     <script is:inline>
-      const stored = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      if (stored === "dark" || (!stored && prefersDark)) {
-        document.documentElement.classList.add("dark");
-      }
+      const setDarkMode = () => {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
+      
+      setDarkMode();
+      document.addEventListener("astro:after-swap", setDarkMode);
     </script>
 
     <ClientRouter />

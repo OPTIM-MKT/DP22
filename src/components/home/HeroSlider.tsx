@@ -68,7 +68,13 @@ export default function HeroSlider({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="max-w-2xl"
+              className={`max-w-2xl flex flex-col ${
+                active === 1
+                  ? "mr-auto items-start text-left"
+                  : active === 2
+                  ? "ml-auto items-end text-right"
+                  : "mx-auto items-center text-center"
+              }`}
             >
               <span className="text-xs font-medium uppercase tracking-[0.3em] text-secondary">
                 DP22 · Desarrolladora
@@ -79,23 +85,31 @@ export default function HeroSlider({
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
                 {slides[active]?.subtitle}
               </p>
+
+              <div
+                className={`pointer-events-auto mt-8 flex flex-wrap gap-3 ${
+                  active === 1
+                    ? "justify-start"
+                    : active === 2
+                    ? "justify-end"
+                    : "justify-center"
+                }`}
+              >
+                <a
+                  href={primaryHref}
+                  className="rounded-full bg-secondary px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#1c1606] transition-transform hover:-translate-y-0.5"
+                >
+                  {primaryLabel}
+                </a>
+                <a
+                  href={secondaryHref}
+                  className="rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+                >
+                  {secondaryLabel}
+                </a>
+              </div>
             </motion.div>
           </AnimatePresence>
-
-          <div className="pointer-events-auto mt-8 flex flex-wrap gap-3">
-            <a
-              href={primaryHref}
-              className="rounded-full bg-secondary px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#1c1606] transition-transform hover:-translate-y-0.5"
-            >
-              {primaryLabel}
-            </a>
-            <a
-              href={secondaryHref}
-              className="rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white/15"
-            >
-              {secondaryLabel}
-            </a>
-          </div>
         </div>
       </div>
 
