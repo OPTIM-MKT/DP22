@@ -1,0 +1,131 @@
+---
+import { routes, cta } from "@/constants/routes";
+import { site } from "@/constants/contact";
+import ThemeToggle from "@/components/shared/ThemeToggle.astro";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-canvas/80 backdrop-blur-md"
+>
+  <nav
+    class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 md:h-20 md:px-8"
+  >
+    <!-- Brand -->
+    <a href="/" class="flex items-center gap-2" aria-label={site.name}>
+      <img
+        src="/logo.avif"
+        alt={site.name}
+        width="40"
+        height="40"
+        class="h-9 w-auto md:h-10"
+      />
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-8 lg:flex">
+      {
+        routes.map((route) => (
+          <li>
+            <a
+              href={route.href}
+              class:list={[
+                "relative text-sm tracking-wide transition-colors hover:text-ink",
+                isActive(route.href) ? "text-ink" : "text-muted",
+              ]}
+            >
+              {route.label}
+              {isActive(route.href) && (
+                <span class="absolute -bottom-1.5 left-0 h-px w-full bg-secondary" />
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <ThemeToggle />
+      <a
+        href={cta.href}
+        class="hidden rounded-full bg-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-transform hover:-translate-y-0.5 lg:inline-flex"
+      >
+        {cta.label}
+      </a>
+
+      <!-- Mobile toggle -->
+      <button
+        id="nav-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink lg:hidden"
+      >
+        <svg
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div
+    id="nav-mobile"
+    class="hidden border-t border-line bg-canvas lg:hidden"
+  >
+    <ul class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
+      {
+        routes.map((route) => (
+          <li>
+            <a
+              href={route.href}
+              class:list={[
+                "block rounded-lg px-3 py-3 text-base transition-colors hover:bg-panel",
+                isActive(route.href) ? "text-ink" : "text-muted",
+              ]}
+            >
+              {route.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="mt-2">
+        <a
+          href={cta.href}
+          class="block rounded-full bg-primary px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.15em] text-white"
+        >
+          {cta.label}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const toggle = document.getElementById("nav-toggle");
+    const menu = document.getElementById("nav-mobile");
+    if (!toggle || !menu) return;
+
+    const close = () => {
+      menu.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+  });
+</script>

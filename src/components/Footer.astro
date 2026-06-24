@@ -1,0 +1,74 @@
+---
+import { routes } from "@/constants/routes";
+import { site, contact } from "@/constants/contact";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-panel">
+  <div class="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-16">
+    <div class="grid gap-10 md:grid-cols-3">
+      <!-- Brand -->
+      <div>
+        <img
+          src="/logo.avif"
+          alt={site.name}
+          width="48"
+          height="48"
+          class="h-11 w-auto"
+        />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted">
+          {site.defaultDescription}
+        </p>
+      </div>
+
+      <!-- Nav -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          Navegación
+        </h3>
+        <ul class="mt-4 space-y-2.5">
+          {
+            routes.map((route) => (
+              <li>
+                <a
+                  href={route.href}
+                  class="text-sm text-ink/80 transition-colors hover:text-secondary"
+                >
+                  {route.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          Contacto
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-sm text-ink/80">
+          <li>
+            <a class="transition-colors hover:text-secondary" href={contact.phoneHref}>
+              {contact.phone}
+            </a>
+          </li>
+          <li>
+            <a class="transition-colors hover:text-secondary" href={contact.emailHref}>
+              {contact.email}
+            </a>
+          </li>
+          <li class="max-w-xs leading-relaxed">{contact.address}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>Desarrolladora inmobiliaria · Nuevo León, México</p>
+    </div>
+  </div>
+</footer>

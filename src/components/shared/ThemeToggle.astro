@@ -3,10 +3,35 @@ import { Button } from "@/components/ui/Button";
 import { FiMoon, FiSun } from "react-icons/fi";
 ---
 
-<Button variant="simple" data-theme-toggle aria-label="Toggle color theme">
-  <span class="shrink-0 text-lg flex items-center justify-center">
+<Button
+  variant="simple"
+  size="sm"
+  data-theme-toggle
+  aria-label="Cambiar tema de color"
+>
+  <span class="shrink-0 text-base flex items-center justify-center">
     <FiMoon className="block dark:hidden" />
     <FiSun className="hidden dark:block" />
   </span>
-  <span data-theme-label>Dark</span>
+  <span data-theme-label class="hidden sm:inline">Oscuro</span>
 </Button>
+
+<script>
+  function syncLabel() {
+    const isDark = document.documentElement.classList.contains("dark");
+    document.querySelectorAll<HTMLElement>("[data-theme-label]").forEach((el) => {
+      el.textContent = isDark ? "Claro" : "Oscuro";
+    });
+  }
+
+  document.addEventListener("astro:page-load", syncLabel);
+
+  // Delegated so it survives view transitions (registered once).
+  document.addEventListener("click", (e) => {
+    const toggle = (e.target as Element)?.closest("[data-theme-toggle]");
+    if (!toggle) return;
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    syncLabel();
+  });
+</script>

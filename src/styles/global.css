@@ -3,8 +3,81 @@
 
 @custom-variant dark (&:where(.dark,.dark *));
 
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* Brand: primary = navy, secondary/accent = gold.                     */
+/* Semantic tokens (ink/canvas/panel/line/strategic/muted) flip with   */
+/* the .dark class so every component stays theme-aware automatically.  */
+/* ------------------------------------------------------------------ */
 @theme {
+  /* Brand */
   --color-primary: #1c3766;
   --color-secondary: #d4ae2c;
   --color-accent: #fab702;
+
+  /* Semantic (resolved from the runtime vars below) */
+  --color-canvas: var(--canvas);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-strategic: var(--strategic);
+
+  /* Type */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+:root {
+  --canvas: #f7f6f2;
+  --panel: #ffffff;
+  --ink: #14223f;
+  --muted: #5c6680;
+  --line: #e7e3d8;
+  --strategic: #b8941f;
+}
+
+.dark {
+  --canvas: #0a111f;
+  --panel: #121b2d;
+  --ink: #eef1f6;
+  --muted: #97a2b8;
+  --line: #232f49;
+  --strategic: #d4ae2c;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink);
+  transition:
+    background-color 0.4s var(--ease-soft),
+    color 0.4s var(--ease-soft);
+}
+
+/* Thin, elegant gold rule used as a section accent */
+.rule-gold {
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  color: var(--ink);
+}
+
+/* PhotoSwipe needs to sit above everything */
+.pswp {
+  --pswp-bg: #0a111f;
+  z-index: 100000;
 }

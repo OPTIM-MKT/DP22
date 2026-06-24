@@ -1,0 +1,217 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
+import { FiMapPin, FiCheck } from "react-icons/fi";
+import Layout from "@/layouts/Layout.astro";
+import Gallery from "@/components/gallery/Gallery.astro";
+import ContactForm from "@/components/contact/ContactForm";
+import { contact } from "@/constants/contact";
+import {
+  typeLabels,
+  statusMeta,
+  formatPrice,
+} from "@/constants/propiedades";
+
+const { slug } = Astro.params;
+const entry = slug ? await getEntry("propiedades", slug) : undefined;
+
+if (!entry) {
+  return Astro.redirect("/propiedades");
+}
+
+const { data, id } = entry;
+const { Content } = await render(entry);
+const status = statusMeta[data.status];
+
+const all = await getCollection("propiedades");
+const propertyOptions = all.map((p) => ({ value: p.id, label: p.data.name }));
+
+const specs = [
+  data.bedrooms && { label: "Recámaras", value: data.bedrooms },
+  data.bathrooms && { label: "Baños", value: data.bathrooms },
+  data.size && { label: "Superficie", value: `${data.size} m²` },
+  data.parking && { label: "Estac.", value: data.parking },
+].filter(Boolean) as { label: string; value: string | number }[];
+---
+
+<Layout
+  title={`${data.name} | DP22`}
+  description={data.description}
+  image={data.Image.src}
+>
+  <article class="mx-auto max-w-7xl px-5 pb-20 pt-8 md:px-8">
+    <!-- Breadcrumb -->
+    <a
+      href="/propiedades"
+      class="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink"
+    >
+      ← Volver a propiedades
+    </a>
+
+    <!-- Header -->
+    <header class="mt-5 flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span
+            class="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-secondary"
+          >
+            {typeLabels[data.type]}
+          </span>
+          <span
+            class:list={[
+              "rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider",
+              status.available
+                ? "bg-emerald-500/15 text-emerald-600"
+                : "bg-ink/10 text-muted",
+            ]}
+          >
+            {status.label}
+          </span>
+        </div>
+        <h1
+          class="mt-3 font-display text-3xl font-medium text-ink md:text-5xl"
+          transition:name={`prop-title-${id}`}
+        >
+          {data.name}
+        </h1>
+        {
+          data.location && (
+            <p class="mt-2 flex items-center gap-1.5 text-muted">
+              <FiMapPin /> {data.location}
+            </p>
+          )
+        }
+      </div>
+      <div class="text-right">
+        <p class="font-display text-3xl font-semibold text-ink">
+          {formatPrice(data.price)}
+        </p>
+      </div>
+    </header>
+
+    <!-- Hero image -->
+    <div class="mt-6 overflow-hidden rounded-3xl">
+      <Image
+        src={data.Image}
+        alt={data.name}
+        width={1600}
+        height={900}
+        class="aspect-[16/9] w-full object-cover"
+        transition:name={`prop-img-${id}`}
+      />
+    </div>
+
+    <!-- Body: content + sticky aside -->
+    <div class="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-14">
+      <div class="lg:col-span-2">
+        <!-- Specs -->
+        {
+          specs.length > 0 && (
+            <div class="grid grid-cols-2 gap-4 border-b border-line pb-8 sm:grid-cols-4">
+              {specs.map((s) => (
+                <div>
+                  <p class="font-display text-2xl font-semibold text-ink">
+                    {s.value}
+                  </p>
+                  <p class="text-xs uppercase tracking-wider text-muted">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )
+        }
+
+        <!-- Description (markdown body) -->
+        <div
+          class="prose prose-neutral mt-8 max-w-none dark:prose-invert prose-headings:font-display prose-headings:font-medium prose-a:text-secondary"
+        >
+          <Content />
+        </div>
+
+        <!-- Amenities -->
+        {
+          data.amenities && data.amenities.length > 0 && (
+            <div class="mt-10">
+              <h2 class="font-display text-2xl font-medium text-ink">
+                Amenidades
+              </h2>
+              <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+                {data.amenities.map((a) => (
+                  <li class="flex items-center gap-2.5 text-sm text-ink/85">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                      <FiCheck className="text-xs" />
+                    </span>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        <!-- Gallery (renders only if images exist in /gal/{galleryName}) -->
+        {
+          data.galleryName && (
+            <div class="mt-12">
+              <Gallery name={data.galleryName} title="Galería" />
+            </div>
+          )
+        }
+
+        <!-- Map -->
+        {
+          data.map && (
+            <div class="mt-12">
+              <h2 class="mb-5 font-display text-2xl font-medium text-ink">
+                Ubicación
+              </h2>
+              <iframe
+                src={data.map}
+                title={`Mapa de ${data.name}`}
+                loading="lazy"
+                class="h-72 w-full rounded-2xl border border-line"
+                referrerpolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Sticky contact aside -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-24 rounded-3xl border border-line bg-panel p-6 md:p-7">
+          <h2 class="font-display text-2xl font-medium text-ink">
+            ¿Te interesa esta propiedad?
+          </h2>
+          <p class="mt-2 text-sm text-muted">
+            Déjanos tus datos y un asesor te contactará.
+          </p>
+
+          <div class="mt-5">
+            <ContactForm
+              client:visible
+              properties={propertyOptions}
+              defaultProperty={id}
+            />
+          </div>
+
+          <div class="mt-6 space-y-2 border-t border-line pt-5 text-sm">
+            <a
+              href={contact.phoneHref}
+              class="block text-ink transition-colors hover:text-secondary"
+            >
+              {contact.phone}
+            </a>
+            <a
+              href={contact.emailHref}
+              class="block text-ink transition-colors hover:text-secondary"
+            >
+              {contact.email}
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+</Layout>

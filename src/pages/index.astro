@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "@/layouts/Layout.astro";
+import HeroSlider from "@/components/home/HeroSlider";
+import Intro from "@/components/home/Intro.astro";
+import Values from "@/components/home/Values.astro";
+import PropertiesTeaser from "@/components/home/PropertiesTeaser.astro";
+import CtaBanner from "@/components/shared/CtaBanner.astro";
+import { heroSlides, homeCta } from "@/constants/home";
 ---
 
 <Layout>
-	<Welcome />
+  <HeroSlider
+    client:load
+    slides={heroSlides}
+    primaryLabel="Ver propiedades"
+    primaryHref="/propiedades"
+    secondaryLabel="Conócenos"
+    secondaryHref="/acerca"
+  />
+  <Intro />
+  <Values />
+  <PropertiesTeaser />
+  <CtaBanner
+    bgSrc={homeCta.bgSrc}
+    eyebrow={homeCta.eyebrow}
+    title={homeCta.title}
+    description={homeCta.description}
+    primaryLabel={homeCta.primaryLabel}
+    primaryHref={homeCta.primaryHref}
+    secondaryLabel={homeCta.secondaryLabel}
+    secondaryHref={homeCta.secondaryHref}
+  />
 </Layout>

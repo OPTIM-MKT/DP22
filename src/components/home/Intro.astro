@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import ScrollReveal from "@/components/shared/ScrollReveal";
+import { intro, stats } from "@/constants/home";
+import { Images } from "@/constants/images";
+---
+
+<section class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+  <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <ScrollReveal client:visible direction="right">
+      <span class="text-xs font-medium uppercase tracking-[0.3em] text-secondary">
+        {intro.eyebrow}
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-medium leading-tight text-ink md:text-4xl">
+        {intro.title}
+      </h2>
+      <div class="rule-gold mt-5"></div>
+      <p class="mt-6 text-base leading-relaxed text-muted">
+        {intro.description}
+      </p>
+
+      <dl class="mt-10 grid grid-cols-3 gap-6">
+        {
+          stats.map((s) => (
+            <div>
+              <dt class="font-display text-3xl font-semibold text-ink">
+                {s.value}
+              </dt>
+              <dd class="mt-1 text-xs leading-snug text-muted">{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <a
+        href={intro.ctaHref}
+        class="mt-10 inline-flex rounded-full bg-primary px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-transform hover:-translate-y-0.5"
+      >
+        {intro.ctaLabel}
+      </a>
+    </ScrollReveal>
+
+    <ScrollReveal client:visible direction="left">
+      <div class="relative">
+        <Image
+          src={Images[2].image}
+          alt="Proyecto DP22"
+          width={720}
+          height={860}
+          class="aspect-[5/6] w-full rounded-2xl object-cover"
+        />
+        <div
+          class="absolute -bottom-6 -left-6 hidden rounded-xl border border-line bg-panel p-5 shadow-lg sm:block"
+        >
+          <p class="font-display text-2xl font-semibold text-secondary">DP22</p>
+          <p class="text-xs text-muted">Valor real, no solo m²</p>
+        </div>
+      </div>
+    </ScrollReveal>
+  </div>
+</section>

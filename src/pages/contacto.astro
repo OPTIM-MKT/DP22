@@ -1,0 +1,74 @@
+---
+import { getCollection } from "astro:content";
+import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
+import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import ContactForm from "@/components/contact/ContactForm";
+import { contact, contactChannels } from "@/constants/contact";
+
+const all = await getCollection("propiedades");
+const propertyOptions = all.map((p) => ({ value: p.id, label: p.data.name }));
+
+const icons = { phone: FiPhone, mail: FiMail, pin: FiMapPin } as const;
+---
+
+<Layout title="Contacto | DP22" description={contact.description}>
+  <section class="mx-auto max-w-7xl px-5 pt-16 md:px-8 md:pt-24">
+    <SectionHeading
+      eyebrow={contact.eyebrow}
+      title={contact.title}
+      description={contact.description}
+    />
+
+    <div class="mt-14 grid gap-12 pb-20 lg:grid-cols-2 lg:gap-20">
+      <!-- Info + map -->
+      <div>
+        <ul class="space-y-5">
+          {
+            contactChannels.map((c) => {
+              const Icon = icons[c.icon];
+              return (
+                <li>
+                  <a href={c.href} class="group flex items-start gap-4">
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                      <Icon className="text-lg" />
+                    </span>
+                    <span>
+                      <span class="block text-xs uppercase tracking-wider text-muted">
+                        {c.label}
+                      </span>
+                      <span class="block text-ink transition-colors group-hover:text-secondary">
+                        {c.value}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <iframe
+          src={contact.mapEmbed}
+          title="Ubicación DP22"
+          loading="lazy"
+          class="mt-8 h-72 w-full rounded-2xl border border-line"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <!-- Form -->
+      <div class="rounded-3xl border border-line bg-panel p-6 md:p-8">
+        <h2 class="font-display text-2xl font-medium text-ink">
+          Solicita información
+        </h2>
+        <p class="mt-2 text-sm text-muted">
+          Completa el formulario y te responderemos a la brevedad.
+        </p>
+        <div class="mt-6">
+          <ContactForm client:visible properties={propertyOptions} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import ScrollReveal from "@/components/shared/ScrollReveal";
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import Card from "@/components/propiedades/Card.astro";
+import { propertiesTeaser } from "@/constants/home";
+
+const all = await getCollection("propiedades");
+const featured = all
+  .sort((a, b) => Number(b.data.featured ?? 0) - Number(a.data.featured ?? 0))
+  .slice(0, 3);
+---
+
+<section class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+  <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <SectionHeading
+      eyebrow={propertiesTeaser.eyebrow}
+      title={propertiesTeaser.title}
+      description={propertiesTeaser.description}
+    />
+    <a
+      href={propertiesTeaser.ctaHref}
+      class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-secondary transition-colors hover:text-strategic"
+    >
+      {propertiesTeaser.ctaLabel} →
+    </a>
+  </div>
+
+  <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      featured.map((entry, i) => (
+        <ScrollReveal client:visible delay={i * 0.1}>
+          <Card entry={entry} />
+        </ScrollReveal>
+      ))
+    }
+  </div>
+</section>

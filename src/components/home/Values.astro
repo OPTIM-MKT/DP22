@@ -1,0 +1,47 @@
+---
+import ScrollReveal from "@/components/shared/ScrollReveal";
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import { values } from "@/constants/home";
+import { FiTrendingUp, FiMapPin, FiAward, FiShield } from "react-icons/fi";
+
+const icons = {
+  trending: FiTrendingUp,
+  map: FiMapPin,
+  diamond: FiAward,
+  shield: FiShield,
+} as const;
+---
+
+<section class="border-y border-line bg-panel">
+  <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <SectionHeading
+      eyebrow="Por qué DP22"
+      title="Inversión con propósito"
+      description="Cuatro principios que definen cada uno de nuestros desarrollos."
+      align="center"
+    />
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        values.map((value, i) => {
+          const Icon = icons[value.icon];
+          return (
+            <ScrollReveal client:visible delay={i * 0.1}>
+              <div class="h-full rounded-2xl border border-line bg-canvas p-7 transition-colors hover:border-secondary/40">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                  <Icon className="text-xl" />
+                </span>
+                <h3 class="mt-5 font-display text-xl font-medium text-ink">
+                  {value.title}
+                </h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">
+                  {value.description}
+                </p>
+              </div>
+            </ScrollReveal>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

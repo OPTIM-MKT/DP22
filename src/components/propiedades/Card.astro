@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { FiMapPin } from "react-icons/fi";
+import {
+  typeLabels,
+  statusMeta,
+  formatPrice,
+} from "@/constants/propiedades";
+
+interface Props {
+  entry: CollectionEntry<"propiedades">;
+  /** Enables view-transition morph (only one card per id should set this). */
+  morph?: boolean;
+}
+
+const { entry, morph = false } = Astro.props;
+const { id, data } = entry;
+const status = statusMeta[data.status];
+---
+
+<a
+  href={`/propiedades/${id}`}
+  class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+>
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <Image
+      src={data.Image}
+      alt={data.name}
+      width={720}
+      height={540}
+      class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      transition:name={morph ? `prop-img-${id}` : undefined}
+    />
+    <!-- Status badge -->
+    <span
+      class:list={[
+        "absolute left-3 top-3 rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider backdrop-blur-sm",
+        status.available
+          ? "bg-emerald-500/90 text-white"
+          : "bg-black/60 text-white",
+      ]}
+    >
+      {status.label}
+    </span>
+    <!-- Type tag -->
+    <span
+      class="absolute right-3 top-3 rounded-full bg-white/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-primary"
+    >
+      {typeLabels[data.type]}
+    </span>
+  </div>
+
+  <div class="flex flex-1 flex-col p-5">
+    <h3
+      class="font-display text-xl font-medium leading-snug text-ink"
+      transition:name={morph ? `prop-title-${id}` : undefined}
+    >
+      {data.name}
+    </h3>
+
+    {
+      data.location && (
+        <p class="mt-1.5 flex items-center gap-1.5 text-sm text-muted">
+          <FiMapPin className="shrink-0" />
+          {data.location}
+        </p>
+      )
+    }
+
+    <!-- Specs -->
+    <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+      {data.bedrooms && <span>{data.bedrooms} rec.</span>}
+      {data.bathrooms && <span>{data.bathrooms} baños</span>}
+      {data.size && <span>{data.size} m²</span>}
+      {data.parking && <span>{data.parking} autos</span>}
+    </div>
+
+    <div
+      class="mt-5 flex items-center justify-between border-t border-line pt-4"
+    >
+      <span class="font-display text-lg font-semibold text-ink">
+        {formatPrice(data.price)}
+      </span>
+      <span
+        class="text-xs font-semibold uppercase tracking-wider text-secondary transition-transform group-hover:translate-x-0.5"
+      >
+        Ver más →
+      </span>
+    </div>
+  </div>
+</a>

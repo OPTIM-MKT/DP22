@@ -1,0 +1,72 @@
+---
+import ScrollReveal from "@/components/shared/ScrollReveal";
+
+interface Props {
+  bgSrc: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  bgSrc,
+  eyebrow,
+  title,
+  description,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+  <img src={bgSrc} alt="" class="absolute inset-0 h-full w-full object-cover" />
+  <div class="absolute inset-0 bg-primary/85"></div>
+
+  <div class="relative mx-auto max-w-4xl px-5 py-20 text-center md:py-28">
+    <ScrollReveal client:visible>
+      {
+        eyebrow && (
+          <span class="text-xs font-medium uppercase tracking-[0.3em] text-secondary">
+            {eyebrow}
+          </span>
+        )
+      }
+      <h2
+        class="mx-auto mt-4 max-w-2xl font-display text-3xl font-medium leading-tight text-white md:text-5xl"
+      >
+        {title}
+      </h2>
+      {
+        description && (
+          <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/80">
+            {description}
+          </p>
+        )
+      }
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <a
+          href={primaryHref}
+          class="rounded-full bg-secondary px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#1c1606] transition-transform hover:-translate-y-0.5"
+        >
+          {primaryLabel}
+        </a>
+        {
+          secondaryLabel && secondaryHref && (
+            <a
+              href={secondaryHref}
+              class="rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+            >
+              {secondaryLabel}
+            </a>
+          )
+        }
+      </div>
+    </ScrollReveal>
+  </div>
+</section>
