@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
           alt={site.name}
           width="48"
           height="48"
-          class="h-11 w-auto"
+          class="h-20 w-auto"
         />
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted">
           {site.defaultDescription}
@@ -50,12 +50,18 @@ const year = new Date().getFullYear();
         </h3>
         <ul class="mt-4 space-y-2.5 text-sm text-ink/80">
           <li>
-            <a class="transition-colors hover:text-secondary" href={contact.phoneHref}>
+            <a
+              class="transition-colors hover:text-secondary"
+              href={contact.phoneHref}
+            >
               {contact.phone}
             </a>
           </li>
           <li>
-            <a class="transition-colors hover:text-secondary" href={contact.emailHref}>
+            <a
+              class="transition-colors hover:text-secondary"
+              href={contact.emailHref}
+            >
               {contact.email}
             </a>
           </li>
@@ -67,7 +73,15 @@ const year = new Date().getFullYear();
     <div
       class="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between"
     >
-      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>
+        © {year}
+        {site.name}. Todos los derechos reservados. Made by <a
+          class="text-primary"
+          href="https://www.optimmkt.com/"
+          target="_blank"
+          rel="noopener noreferrer">Optim</a
+        >
+      </p>
       <p>Desarrolladora inmobiliaria · Nuevo León, México</p>
     </div>
   </div>

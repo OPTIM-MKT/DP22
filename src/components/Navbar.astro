@@ -19,9 +19,9 @@ const isActive = (href: string) =>
       <img
         src="/logo.avif"
         alt={site.name}
-        width="40"
-        height="40"
-        class="h-9 w-auto md:h-10"
+        width="80"
+        height="80"
+        class="h-10 w-auto md:h-20"
       />
     </a>
 
@@ -78,10 +78,7 @@ const isActive = (href: string) =>
   </nav>
 
   <!-- Mobile drawer -->
-  <div
-    id="nav-mobile"
-    class="hidden border-t border-line bg-canvas lg:hidden"
-  >
+  <div id="nav-mobile" class="hidden border-t border-line bg-canvas lg:hidden">
     <ul class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
       {
         routes.map((route) => (
@@ -126,6 +123,8 @@ const isActive = (href: string) =>
       toggle.setAttribute("aria-expanded", open ? "false" : "true");
     });
 
-    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    menu
+      .querySelectorAll("a")
+      .forEach((a) => a.addEventListener("click", close));
   });
 </script>

@@ -79,7 +79,7 @@ export default function HeroSlider({
               <span className="text-xs font-medium uppercase tracking-[0.3em] text-secondary">
                 DP22 · Desarrolladora
               </span>
-              <h1 className="mt-4 font-display text-4xl font-medium leading-[1.05] text-white sm:text-5xl md:text-6xl">
+              <h1 className="mt-4 font-display text-4xl font-medium leading-[1.05] text-white md:text-8xl">
                 {slides[active]?.title}
               </h1>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
