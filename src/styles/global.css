@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:where(.dark,.dark *));
 
+@font-face {
+  font-family: 'Neue Helvetica';
+  src: url('../assets/fonts/neue-helvetica.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ------------------------------------------------------------------ */
 /* Design tokens                                                       */
 /* Brand: primary = navy, secondary/accent = gold.                     */
@@ -26,6 +34,7 @@
   /* Type */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-neue: "Neue Helvetica", sans-serif;
 
   /* Motion */
   --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
