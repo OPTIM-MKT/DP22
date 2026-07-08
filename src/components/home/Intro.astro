@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import { intro, stats } from "@/constants/home";
-import { Images } from "@/constants/images";
+import { introImg } from "@/constants/images";
 ---
 
 <section class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
@@ -47,7 +47,7 @@ import { Images } from "@/constants/images";
     <ScrollReveal client:visible direction="left">
       <div class="relative">
         <Image
-          src={Images[2].image}
+          src={introImg}
           alt="Proyecto DP22"
           width={720}
           height={860}

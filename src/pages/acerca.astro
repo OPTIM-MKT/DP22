@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import SectionHeading from "@/components/shared/SectionHeading.astro";
 import CtaBanner from "@/components/shared/CtaBanner.astro";
-import { Images } from "@/constants/images";
+import { Images, historyImg, acercaImg } from "@/constants/images";
 import {
   acercaHero,
   story,
@@ -36,9 +36,7 @@ import {
         >
           {acercaHero.eyebrow}
         </span>
-        <h1
-          class="mt-3 font-neue text-4xl font-medium text-white md:text-6xl"
-        >
+        <h1 class="mt-3 font-neue text-4xl font-medium text-white md:text-6xl">
           {acercaHero.title}
         </h1>
         <p class="mt-5 max-w-xl text-base leading-relaxed text-white/80">
@@ -53,7 +51,7 @@ import {
     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
       <ScrollReveal client:visible direction="left">
         <Image
-          src={Images[3].image}
+          src={historyImg}
           alt="DP22"
           width={720}
           height={860}

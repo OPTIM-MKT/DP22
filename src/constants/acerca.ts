@@ -1,11 +1,11 @@
-import { Images } from "@/constants/images";
+import { Images, acercaImg, historyImg } from "@/constants/images";
 
 export const acercaHero = {
   eyebrow: "Nosotros",
   title: "Somos DP22",
   description:
     "Una desarrolladora enfocada en crear proyectos inmobiliarios con alto potencial de crecimiento, diseñados para generar valor real a nuestros clientes.",
-  image: Images[2].image.src,
+  image: acercaImg.src,
 };
 
 export const story = {
@@ -15,7 +15,7 @@ export const story = {
     "Nacimos con una convicción simple: cada proyecto debe generar valor real. No construimos por construir; analizamos el mercado, elegimos ubicaciones con futuro y cuidamos cada detalle del diseño y la ejecución.",
     "Acompañamos a nuestros clientes con transparencia, desde la primera conversación hasta la entrega. Para nosotros, la confianza es el cimiento de cualquier inversión.",
   ],
-  image: Images[3].image.src,
+  image: historyImg.src,
 };
 
 export interface Pillar {
