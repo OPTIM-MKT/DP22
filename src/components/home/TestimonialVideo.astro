@@ -1,0 +1,54 @@
+---
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import ScrollReveal from "@/components/shared/ScrollReveal";
+---
+
+<section class="border-y border-line bg-panel">
+  <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <ScrollReveal client:visible>
+      <SectionHeading
+        eyebrow="Testimonios"
+        title="Lo que dicen nuestros clientes"
+        description="La experiencia de quienes han confiado en DP22 para hacer crecer su patrimonio."
+        align="center"
+      />
+    </ScrollReveal>
+
+    <ScrollReveal client:visible>
+      <div class="relative mx-auto mt-14 max-w-3xl">
+        <!-- Decorative glow -->
+        <div
+          class="pointer-events-none absolute -inset-4 rounded-3xl bg-secondary/10 blur-2xl"
+          aria-hidden="true"
+        >
+        </div>
+
+        <!-- Video wrapper -->
+        <div
+          class="relative overflow-hidden rounded-2xl border border-line shadow-2xl"
+        >
+          <!-- 16:9 aspect ratio container -->
+          <div class="relative aspect-video w-full">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/ClqUwBSd7gI?si=8Q80W8yySXZhRcqJ&start=15&rel=0&modestbranding=1&color=white"
+              title="Testimonio DP22 — cliente"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+              class="absolute inset-0 h-full w-full"
+              style="border:0;"></iframe>
+          </div>
+        </div>
+
+        <!-- Quote accent -->
+        <p
+          class="mx-auto mt-8 max-w-xl text-center text-sm leading-relaxed text-muted"
+        >
+          "Desde el primer contacto hasta la entrega, el proceso fue
+          transparente y profesional. Invertir con DP22 fue la mejor decisión."
+        </p>
+      </div>
+    </ScrollReveal>
+  </div>
+</section>
