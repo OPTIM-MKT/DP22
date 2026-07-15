@@ -20,8 +20,8 @@ export const contact = {
   address: "Media Luna 100, San Pedro, El Cercado, México, 67328",
   phone: "81 1761 4936",
   phoneHref: "tel:+528117614936",
-  email: "arturo.mendez@dp22.mx",
-  emailHref: "mailto:arturo.mendez@dp22.mx",
+  email: "ventas@dp22.mx",
+  emailHref: "mailto:ventas@dp22.mx",
   whatsappHref: "https://wa.me/528117614936",
   mapEmbed:
     "https://www.google.com/maps?q=Media%20Luna%20100%2C%20San%20Pedro%2C%20El%20Cercado%2C%2067328&output=embed",
