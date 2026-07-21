@@ -7,19 +7,11 @@ import { toast, Toaster } from "sonner";
 import {
   contactSchema,
   type ContactFormData,
+  INTERES_OPTIONS,
 } from "./contact.schema";
-import { FiLoader } from "react-icons/fi";
+import { FiLoader, FiSend } from "react-icons/fi";
 
-interface PropertyOption {
-  value: string;
-  label: string;
-}
-
-export default function ContactForm({
-  properties = [],
-}: {
-  properties?: PropertyOption[];
-}) {
+export default function ContactForm() {
   const {
     register,
     handleSubmit,
@@ -53,9 +45,9 @@ export default function ContactForm({
   };
 
   const inputClass =
-    "w-full rounded-xl border border-line bg-canvas px-4 py-3.5 text-sm text-ink placeholder:text-muted outline-none transition-all duration-200 focus:border-secondary focus:ring-2 focus:ring-secondary/10";
+    "w-full rounded-xl border border-border dark:bg-ash/10 dark:text-white bg-bone px-4 py-3.5 text-sm text-ink placeholder:text-ash outline-none transition-all duration-200 focus:border-primary dark:focus:border-secondary focus:ring-2 focus:ring-primary/10";
   const labelClass =
-    "mb-2 block text-xs font-semibold tracking-[0.1em] text-muted uppercase";
+    "mb-2 block text-xs font-semibold tracking-[0.1em] text-ink/70 uppercase dark:text-white/70";
   const errorClass = "text-red-500 text-xs mt-1 block";
 
   return (
@@ -67,7 +59,7 @@ export default function ContactForm({
         closeButton
         toastOptions={{
           style: {
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-body)",
             borderRadius: "12px",
           },
         }}
@@ -77,7 +69,7 @@ export default function ContactForm({
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {/* Nombre */}
           <div>
-            <label htmlFor="nombre" className={labelClass}>
+            <label htmlFor="nombre" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
               Nombre completo
               <span className="text-secondary ml-1">*</span>
             </label>
@@ -86,6 +78,7 @@ export default function ContactForm({
               id="nombre"
               placeholder="Tu nombre completo"
               className={inputClass}
+              style={{ fontFamily: "var(--font-body)" }}
               {...register("nombre")}
             />
             {errors.nombre && (
@@ -95,7 +88,7 @@ export default function ContactForm({
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className={labelClass}>
+            <label htmlFor="email" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
               Correo electrónico
               <span className="text-secondary ml-1">*</span>
             </label>
@@ -104,6 +97,7 @@ export default function ContactForm({
               id="email"
               placeholder="tu@email.com"
               className={inputClass}
+              style={{ fontFamily: "var(--font-body)" }}
               {...register("email")}
             />
             {errors.email && (
@@ -113,15 +107,15 @@ export default function ContactForm({
 
           {/* Teléfono */}
           <div>
-            <label htmlFor="telefono" className={labelClass}>
+            <label htmlFor="telefono" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
               Teléfono
-              <span className="text-secondary ml-1">*</span>
             </label>
             <input
               type="tel"
               id="telefono"
-              placeholder="81 0000 0000"
+              placeholder="Tu número de teléfono"
               className={inputClass}
+              style={{ fontFamily: "var(--font-body)" }}
               {...register("telefono")}
             />
             {errors.telefono && (
@@ -131,45 +125,58 @@ export default function ContactForm({
 
           {/* Interés */}
           <div>
-            <label htmlFor="interes" className={labelClass}>
-              Propiedad de interés
+            <label htmlFor="interes" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
+              Categoría o Producto de interés
             </label>
             <select
               id="interes"
               className={inputClass}
+              style={{ fontFamily: "var(--font-body)" }}
               {...register("interes")}
               defaultValue=""
             >
-              <option value="" disabled>
-                Selecciona una propiedad
-              </option>
-              {properties.map((p) => (
-                <option key={p.value} value={p.value}>
-                  {p.label}
+              <option value="" disabled>Selecciona una opción</option>
+              {INTERES_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
                 </option>
               ))}
-              <option value="otra">Otra / Asesoría general</option>
             </select>
             {errors.interes && (
               <span className={errorClass}>{errors.interes.message}</span>
             )}
           </div>
 
+          {/* Asunto */}
+          <div className="sm:col-span-2">
+            <label htmlFor="asunto" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
+              Asunto
+            </label>
+            <input
+              type="text"
+              id="asunto"
+              placeholder="¿En qué podemos ayudarte?"
+              className={inputClass}
+              style={{ fontFamily: "var(--font-body)" }}
+              {...register("asunto")}
+            />
+            {errors.asunto && (
+              <span className={errorClass}>{errors.asunto.message}</span>
+            )}
+          </div>
         </div>
 
-        {/* Mensaje — opcional */}
+        {/* Mensaje */}
         <div>
-          <label htmlFor="mensaje" className={labelClass}>
+          <label htmlFor="mensaje" className={labelClass} style={{ fontFamily: "var(--font-body)" }}>
             Mensaje
-            <span className="text-muted/60 ml-1 normal-case tracking-normal">
-              (opcional)
-            </span>
           </label>
           <textarea
             id="mensaje"
             rows={5}
             placeholder="Describe tu proyecto o consulta..."
             className={`${inputClass} resize-none`}
+            style={{ fontFamily: "var(--font-body)" }}
             {...register("mensaje")}
           />
           {errors.mensaje && (
@@ -180,7 +187,8 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-sm font-semibold tracking-[0.15em] text-white uppercase transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl cursor-pointer disabled:opacity-60 disabled:pointer-events-none"
+          className="inline-flex items-center gap-3 rounded-full dark:bg-secondary-dark dark:hover:bg-secondary bg-primary px-8 py-4 text-sm font-semibold tracking-[0.15em] text-ink uppercase transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-light hover:shadow-xl cursor-pointer disabled:opacity-60 disabled:pointer-events-none"
+          style={{ fontFamily: "var(--font-body)" }}
         >
           {isSubmitting ? (
             <>
@@ -189,7 +197,7 @@ export default function ContactForm({
             </>
           ) : (
             <>
-              Solicitar información
+              Enviar mensaje
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
