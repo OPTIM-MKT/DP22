@@ -97,17 +97,17 @@ export const privacidad = {
     ],
   },
 
-  cookies: {
-    heading: "7. Uso de cookies y tecnologías de rastreo",
-    body: [
-      "Nuestro sitio web puede utilizar cookies y tecnologías similares con el propósito de mejorar la experiencia de navegación, analizar el tráfico del sitio y medir la efectividad de nuestras campañas publicitarias (por ejemplo, Meta Pixel y Google Analytics).",
-      "Estas herramientas pueden recopilar información como su dirección IP, páginas visitadas y tiempo de navegación, pero no asocian esta información con sus datos personales identificables de manera directa.",
-      "Puede deshabilitar el uso de cookies en la configuración de su navegador en cualquier momento. Tenga en cuenta que deshabilitar las cookies puede afectar la funcionalidad de algunas secciones de nuestro sitio.",
-    ],
-  },
+  //   cookies: {
+  //     heading: "7. Uso de cookies y tecnologías de rastreo",
+  //     body: [
+  //       "Nuestro sitio web puede utilizar cookies y tecnologías similares con el propósito de mejorar la experiencia de navegación, analizar el tráfico del sitio y medir la efectividad de nuestras campañas publicitarias (por ejemplo, Meta Pixel y Google Analytics).",
+  //       "Estas herramientas pueden recopilar información como su dirección IP, páginas visitadas y tiempo de navegación, pero no asocian esta información con sus datos personales identificables de manera directa.",
+  //       "Puede deshabilitar el uso de cookies en la configuración de su navegador en cualquier momento. Tenga en cuenta que deshabilitar las cookies puede afectar la funcionalidad de algunas secciones de nuestro sitio.",
+  //     ],
+  //   },
 
   seguridad: {
-    heading: "8. Medidas de seguridad",
+    heading: "7. Medidas de seguridad",
     body: [
       "DP22 implementa medidas técnicas, administrativas y físicas de seguridad para proteger sus datos personales contra acceso no autorizado, pérdida, alteración o divulgación indebida.",
       "Solo el personal autorizado de DP22 tiene acceso a sus datos, y únicamente para los fines descritos en este aviso.",
@@ -115,7 +115,7 @@ export const privacidad = {
   },
 
   cambios: {
-    heading: "9. Cambios al aviso de privacidad",
+    heading: "8. Cambios al aviso de privacidad",
     body: [
       "DP22 se reserva el derecho de modificar o actualizar el presente Aviso de Privacidad en cualquier momento para reflejar cambios en nuestras prácticas de privacidad, en la legislación aplicable o en los servicios que ofrecemos.",
       "Cualquier cambio será publicado en esta misma página con la fecha de actualización correspondiente. Le recomendamos revisarla periódicamente.",
@@ -123,7 +123,7 @@ export const privacidad = {
   },
 
   legislacion: {
-    heading: "10. Legislación aplicable",
+    heading: "9. Legislación aplicable",
     body: [
       "El presente Aviso de Privacidad se rige por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento, así como por los Lineamientos del Aviso de Privacidad publicados por el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI) de México.",
     ],
