@@ -1,5 +1,5 @@
 ---
-import { routes } from "@/constants/routes";
+import { routes, privacidadRoute } from "@/constants/routes";
 import { site, contact } from "@/constants/contact";
 
 const year = new Date().getFullYear();
@@ -82,7 +82,12 @@ const year = new Date().getFullYear();
           rel="noopener noreferrer">Optim</a
         >
       </p>
-      <p>Desarrolladora inmobiliaria · Nuevo León, México</p>
+      <div class="flex items-center gap-4">
+        <p>Desarrolladora inmobiliaria · Nuevo León, México</p>
+        <a href={privacidadRoute.href} class="transition-colors text-secondary">
+          {privacidadRoute.label}
+        </a>
+      </div>
     </div>
   </div>
 </footer>

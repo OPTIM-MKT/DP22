@@ -10,4 +10,9 @@ export const routes: Route[] = [
   { label: "Contacto", href: "/contacto" },
 ];
 
+export const privacidadRoute: Route = {
+  label: "Aviso de Privacidad",
+  href: "/privacidad",
+};
+
 export const cta: Route = { label: "Solicitar información", href: "/contacto" };
